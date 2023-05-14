@@ -11,6 +11,8 @@ class DetailScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        this.supportActionBar?.displayOptions = androidx.appcompat.app.ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.center_title)
 
         val id = intent.getIntExtra("id", 0)
         val title = intent.getStringExtra("title")

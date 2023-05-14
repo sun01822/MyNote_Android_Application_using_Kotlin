@@ -22,6 +22,8 @@ class InputActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInputBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        this.supportActionBar?.displayOptions = androidx.appcompat.app.ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.center_title)
         getInitData()
         appDB = AppDatabase.initDatabase(this)
 
@@ -30,32 +32,32 @@ class InputActivity : AppCompatActivity() {
                 val description = binding.descriptionET.text.toString()
                 val formatter = SimpleDateFormat("yyyy-MM-dd hh:mm:ss a")
                 val time = formatter.format(Date())
-                    if(title.isEmpty()){
-                        binding.titleET.setBackgroundResource(R.drawable.empty_background)
-                        Toast.makeText(this, "Empty Title", Toast.LENGTH_SHORT).show()
-                    }
-                    else if(description.isEmpty()){
-                        binding.titleET.setBackgroundResource(R.drawable.custom_edittext)
-                        binding.descriptionET.setBackgroundResource(R.drawable.empty_background)
-                        Toast.makeText(this, "Empty Description", Toast.LENGTH_SHORT).show()
+                val note = NoteModel(null, title, description, time)
+                if(title.isEmpty()){
+                    binding.titleET.setBackgroundResource(R.drawable.empty_background)
+                    Toast.makeText(this, "Empty Title", Toast.LENGTH_SHORT).show()
+                }
+                else if(description.isEmpty()){
+                    binding.titleET.setBackgroundResource(R.drawable.custom_edittext)
+                    binding.descriptionET.setBackgroundResource(R.drawable.empty_background)
+                    Toast.makeText(this, "Empty Description", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    if(code=="y"){
+                        GlobalScope.launch {
+                            appDB.noteDao().updateNote(note.title.toString(), note.description.toString(), note.time.toString(), id)
+                        }
+                        Toast.makeText(this, "Note added successfully", Toast.LENGTH_SHORT).show()
                     }
                     else{
-                        val note = NoteModel(null, title, description, time)
-                        if(code=="y"){
-                            GlobalScope.launch {
-                                appDB.noteDao().updateNote(note.title.toString(), note.description.toString(), note.time.toString(), id)
-                            }
-                            Toast.makeText(this, "Note added successfully", Toast.LENGTH_SHORT).show()
+                        GlobalScope.launch {
+                            appDB.noteDao().insertNote(note)
                         }
-                        else{
-                            GlobalScope.launch {
-                                appDB.noteDao().insertNote(note)
-                            }
-                            Toast.makeText(this, "Note added successfully", Toast.LENGTH_SHORT).show()
-                        }
+                        Toast.makeText(this, "Note added successfully", Toast.LENGTH_SHORT).show()
                     }
-                startActivity(Intent(this,MainActivity::class.java))
-                finish()
+                    startActivity(Intent(this,MainActivity::class.java))
+                    finish()
+                }
         }
     }
     private fun getInitData(){
