@@ -24,16 +24,13 @@
             android:tooltipText="Empty"
             />
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Empty"
             android:textSize="30sp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="30dp"
-            android:textStyle="bold"
+            android:textStyle="italic"
             android:background="@color/white"
-            android:fontFamily="sans-serif-black"
-            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed"
             android:textAlignment="center"
             />
     </LinearLayout>

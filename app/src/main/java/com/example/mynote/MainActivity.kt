@@ -4,6 +4,7 @@ import android.app.ActionBar
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Note
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.floatingButton.setOnClickListener {
             startActivity(Intent(this, InputActivity::class.java))
-            finish()
         }
     }
     private fun showAllNotes() {
@@ -69,12 +69,13 @@ class MainActivity : AppCompatActivity() {
                     appDB.noteDao().deleteNote(note)
                 }
                 dataList.removeAt(position)
-                adapter.notifyItemRemoved(position)
-                Toast.makeText(this@MainActivity, "Note deleted successfully", Toast.LENGTH_SHORT).show()
                 if(dataList.isEmpty()){
+                    dataList.add(0,NoteModel(1,"No data", "No data", "No data"))
                     binding.emptyLayout.visibility = View.VISIBLE
                     binding.visibleLayout.visibility = View.GONE
                 }
+                adapter.notifyItemRemoved(position)
+                Toast.makeText(this@MainActivity, "Note deleted successfully", Toast.LENGTH_SHORT).show()
             }
         })
     }

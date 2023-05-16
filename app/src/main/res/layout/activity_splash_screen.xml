@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/black"
+    tools:context=".SplashScreen">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/loadingImage"
+        android:src="@drawable/loading"
+        />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="My"
+            android:textColor="#2EE811"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textAlignment="viewEnd"
+            android:textSize="35sp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textSize="35sp"/>
+    </LinearLayout>
+
+</LinearLayout>
